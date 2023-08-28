@@ -17,11 +17,19 @@ class Wheather {
     final currentData = json['current'];
     final conditionData = currentData['condition'];
     return Wheather(
-      lastUpdated: currentData['last_updated'], 
-      cityName: json['location']['name'], 
-      tempC: currentData['temp_c'].toDouble(), 
+      lastUpdated: currentData['last_updated'],
+      cityName: json['location']['name'],
+      tempC: currentData['temp_c'].toDouble(),
       feelsLikeC: currentData['feelslike_c'].toDouble(),
       condition: conditionData['text'],
-      );
+    );
   }
+
+  @override
+  String toString() => '''
+    Last updated: $lastUpdated
+    Temperature: $tempC C
+    Feels like: $feelsLikeC C
+    Weather condition: $condition
+    ''';
 }
