@@ -20,7 +20,7 @@ class Wheather {
       lastUpdated: currentData['last_updated'], 
       cityName: json['location']['name'], 
       tempC: currentData['temp_c'].toDouble(), 
-      feelsLikeC: currentData['feelslike_C'].toDouble(),
+      feelsLikeC: currentData['feelslike_c'].toDouble(),
       condition: conditionData['text'],
       );
   }
