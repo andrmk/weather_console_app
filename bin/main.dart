@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:weather_console_app/weather_api_client.dart';
 
 void main(List<String> arguments) async {
@@ -10,6 +12,36 @@ void main(List<String> arguments) async {
   //print(cityName);
 
   final weatherApiClient = WeatherApiClient();
-  final currentWeather = await weatherApiClient.getCurrentWeather(cityName);
-  print(currentWeather);
+
+  // получение текущей погоды
+  try {
+    final currentWeather = await weatherApiClient.getCurrentWeather(cityName);
+    print('Current Weather for $cityName');
+    print(currentWeather);
+    print('---------------------------\n');
+  } on WeatherApiException catch (error) {
+    print('Error: ${error.message}');
+  } on SocketException catch (_) {
+    print(
+        'Could not fetch current weather data. Check your internet connection!');
+  } catch (e) {
+    print(e);
+  }
+
+  // получение прогноза погоды на неделю
+  try {
+    final weeklyForecast = await weatherApiClient.getWeeklyForecast(cityName);
+    print('Weekly Forecast for $cityName');
+    // ignore: avoid_function_literals_in_foreach_calls
+    weeklyForecast.forEach((forecast) {
+      print(forecast);
+      print('-----------------------------');
+    });
+  } on WeatherApiException catch (error) {
+    print('Error: ${error.message}');
+  } on SocketException catch (_) {
+    print('Could not fetch forecast data. Check your internet connection!');
+  } catch (e) {
+    print(e);
+  }
 }

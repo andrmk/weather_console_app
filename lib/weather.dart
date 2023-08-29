@@ -33,3 +33,34 @@ class Wheather {
     Weather condition: $condition
     ''';
 }
+
+class Forecast {
+  final String date;
+  final double minTempC;
+  final double maxTempC;
+  final String condition;
+
+  Forecast({
+    required this.date,
+    required this.minTempC,
+    required this.maxTempC,
+    required this.condition,
+  });
+
+  factory Forecast.fromJson(Map<String, dynamic> json) {
+    final conditionData = json['day']['condition'];
+    return Forecast(
+      date: json['date'],
+      minTempC: json['day']['mintemp_c'].toDouble(),
+      maxTempC: json['day']['maxtemp_c'].toDouble(),
+      condition: conditionData['text'],
+    );
+  }
+
+  @override
+  String toString() => '''
+    Date: $date
+    Temperature: $minTempC C - $maxTempC
+    Weather condition: $condition
+    ''';
+}
